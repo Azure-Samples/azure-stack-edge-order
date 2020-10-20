@@ -7,7 +7,7 @@ author: v-dalc
 ms.service: databox
 ms.subservice: pod
 ms.topic: sample
-ms.date: 10/08/2020
+ms.date: 10/19/2020
 ms.author: alkohli
 
 # Customer intent: As an IT admin, I want to quickly create multiple orders in Azure Stack Edge using familiar PowerShell cmdlets.
@@ -53,13 +53,13 @@ Before you begin, make sure you have:
 
 ### Download the script
 
-<!--Throughout section, I converted plural "scripts" to singular "scripts" - not tracked in comments.-->1. Go to [azure-stack-edge-order in Azure Samples](https://github.com/Azure-Samples/azure-stack-edge-order).
+1. Go to [azure-stack-edge-order in Azure Samples](https://github.com/Azure-Samples/azure-stack-edge-order).
 
-1. Download or clone the zip file for the script.
+1. Download or clone the zip file for the scripts.
 
    ![Download zip file](./azure-stack-edge-order-download-clone-scripts.png)
 
-    Extract the files from the zip, and note where you saved the script.
+    Extract the files from the zip, and note where you saved the scripts.
 
     You can also clone the samples:
 
@@ -87,7 +87,7 @@ cd scripts
 ```azurepowershell
 & '.\New-AzStackEdgeMultiOrder.ps1'
 ```
-3. With an **Unrestricted** execution policy <!--and an unsigned script?-->, you'll see the following text. Type `R` to run the script.
+3. With an **Unrestricted** execution policy, you'll see the following text. Type `R` to run the script.
 
 ```azurepowershell
 Security warning
@@ -105,18 +105,16 @@ Use this script to create one or more orders for Azure Stack Edge at once. You c
 
 You'll need to provide an Azure subscription ID, resource group, the region where the new Azure Stack Edge resources will be created and other order details. If you are copying an existing order, you will provide the device name and order information from that order.
 
-<!--If you'd rather base your new orders on an existing order, use `New-AzStackEdge-Clone-MultiOrder.ps1` instead.-->
-
 #### Parameter info
 
-- `DeviceName` becomes the name for the new Azure Stack Edge orders. For example, **mydevice** becomes mydevice-0, mydevice-1, and so forth. <!--Following sentence is new.-->If you are copying an existing order, use that order name.
+- `DeviceName` becomes the name for the new Azure Stack Edge orders. For example, **mydevice** becomes mydevice-0, mydevice-1, and so forth. If you are copying an existing order, use that order name.
 
 - `OrderCount` is the total number of orders that you want to create. If you are copying an existing order, enter the total number of orders to create. For example, if you have two copies of an existing order (say, uswest-0 and uswest-1), and you want to add three new orders, enter 5 as the `OrderCount`. The three new orders (uswest-3, uswest-4, and uswest-5) will be added to the existing orders.
 
 - `SKU` indicates the configuration of Azure Stack Edge device to order:
   - `Edge` - Azure Stack Edge Pro - FPGA
-  - `EdgeP_Base` - Azure Stack Edge Pro - 1 GPU
-  - `EdgeP_High` - Azure Stack Edge Pro - 2 GPU
+  - `EdgeP_Base` - Azure Stack Edge Pro - 1GPU
+  - `EdgeP_High` - Azure Stack Edge Pro - 2GPU
 - `ResoureGroupName` - Enter a resource group to use with the order.
 
 #### Sample output 1: Create new orders
@@ -151,7 +149,7 @@ PostalCode: 94089
 City: Sunnyvale
 State: CA
 Country: USA
-Sku: GPU
+Sku:EdgeP_Base
 Setting context
 
 Name                                     Account        SubscriptionNa Environment    TenantId
@@ -214,7 +212,7 @@ PostalCode: 94089
 City: Sunnyvale
 State: CA
 Country: United States
-Sku: GPU
+Sku: EdgeP_Base
 
 Setting context
 
@@ -229,31 +227,131 @@ myasegpu1-3 resource created and order placed successfully
 myasegpu1-4 resource created and order placed successfully
 ```
 
-<!--### New-AzStackEdge-Clone-MultiOrder.ps1
+### New-AzStackEdge-Clone-MultiOrder.ps1
 
 This script creates one or more new orders for Azure Stack Edge devices by cloning an existing order or resource.
 
 #### Usage notes
 
-You'll need to provide the subscription ID, and resource group to use for the order, and the device name, to identify the order to clone.
+To identify the order that you want to clone, you'll need to provide the subscription ID, resource group, and device name.
 
-You will set the region where the new Azure resources will be created and the configuration of Azure Stack Edge to order. Contact and address info from the existing order will be used.
+You'll be able to give the new orders a different name and specify the Azure Stack Edge configuration to use.
+
+The new orders will be created in the same region as the original order. Contact and address info from that order also will be used.
 
 #### Parameter info
 
-- For `DeviceName`, enter the friendly name of the existing device. Order names will be based on the device name. For example, **mydevice** becomes mydevice-0, mydevice-1, and so forth.
+- `DeviceNameToClone` - Enter the friendly name of the device you want to clone.
 
-- `OrderCount` - TK 
+- `OrderCount` - Specify the number of orders to create.
 
-- `SKU` indicates the Azure Stack Edge SKU type to order:<!--Can they specify a different>
+- `NewDeviceName` - Give a name for the new devices. Order names will be numbered. For example, **mynewdevice** becomes mynewdevice-0, mynewdevice-1, and so forth.
+
+- `SKU` indicates the Azure Stack Edge SKU type to order:
   - `Edge` - Azure Stack Edge Pro - FPGA
-  - `EdgeP_Base` - Azure Stack Edge Pro - 1GPU
+  - `EdgeP_Base` - Azure Stack Edge Pro - 1 GPU
   - `EdgeP_High` - Azure Stack Edge Pro - 2 GPU
 
 ### Sample output
 
-The following is sample output for three orders cloned from an existing order by running `New-AzStackEdge-Clone-MultiOrder.ps1`.
+The following is sample output for three orders named myasegpu1useast-0, myasegpu1useast-1, and myasegpu1useast-3, which were cloned from an existing order named myasegputest. The `New-AzStackEdge-Clone-MultiOrder.ps1` script was used.
 
 ```azurepowershell
-PLACEHOLDER
-```-->
+PS C: > Set-ExecutionPolicy Unrestricted
+PS C: > cd scripts
+PS C:\Windows> cd scripts
+PS C:\scripts> & '.\New-AzStackEdge-Clone-MultiOrder.ps1'
+
+Security warning
+Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your
+computer. If you trust this script, use the Unblock-File cmdlet to allow the script to run without this warning
+message. Do you want to run C:\Users\v-dalc\Scripts\New-AzStackEdge-Clone-MultiOrder.ps1?
+[D] Do not run  [R] Run once  [S] Suspend  [?] Help (default is "D"): R
+
+cmdlet New-AzStackEdge-Clone-MultiOrder.ps1 at command pipeline position 1
+Supply values for the following parameters:
+(Type !? for Help.)
+SubscriptionId: ab1c2def-3g45-6h7i-j8kl-901234567890
+ResourceGroupName: myaseresourcegroup
+DeviceNameToClone: myasegputest
+OrderCount: 3
+NewDeviceName: myasegpu1useast
+Sku: EdgeP_Base
+Setting context
+
+Name                                     Account             SubscriptionName    Environment         TenantId
+----                                     -------             ----------------    -----------         --------
+ContosoWE (ab1c2def-3g45-6h7i... gusp@con... Edge Gatewa... AzureCloud     12a345bc-6...
+Getting Device Details
+Getting Order Details
+
+ResourceGroupName : myaseresourcegroup
+EdgeDevice        : Microsoft.Azure.Management.DataBoxEdge.Models.DataBoxEdgeDevice
+Name              : myasegpu1useast-0
+Id                : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.
+                    DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-0
+ExtendedInfo      :
+UpdateSummary     :
+Alert             :
+NetworkSetting    :
+
+
+ResourceGroupName   : myaseresourcegroup
+StackEdgeOrder      : Microsoft.Azure.Management.DataBoxEdge.Models.Order
+DeviceName          : myasegpu1useast-0
+Id                  : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-0/orders/default
+OrderHistory        : {}
+ForwardTrackingInfo : {}
+ReturnTrackingInfo  : {}
+ShippingAddress     : Microsoft.Azure.Management.DataBoxEdge.Models.Address
+
+Getting Device Details
+Getting Order Details
+
+ResourceGroupName : myaseresourcegroup
+EdgeDevice        : Microsoft.Azure.Management.DataBoxEdge.Models.DataBoxEdgeDevice
+Name              : myasegpu1useast-1
+Id                : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-1
+ExtendedInfo      :
+UpdateSummary     :
+Alert             :
+NetworkSetting    :
+
+
+ResourceGroupName   : myaseresourcegroup
+StackEdgeOrder      : Microsoft.Azure.Management.DataBoxEdge.Models.Order
+DeviceName          : myasegpu1useast-1
+Id                  : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-1/orders/default
+OrderHistory        : {}
+ForwardTrackingInfo : {}
+ReturnTrackingInfo  : {}
+ShippingAddress     : Microsoft.Azure.Management.DataBoxEdge.Models.Address
+
+Getting Device Details
+Getting Order Details
+
+ResourceGroupName : myaseresourcegroup
+EdgeDevice        : Microsoft.Azure.Management.DataBoxEdge.Models.DataBoxEdgeDevice
+Name              : myasegpu1useast-2
+Id                : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-2
+ExtendedInfo      :
+UpdateSummary     :
+Alert             :
+NetworkSetting    :
+
+
+ResourceGroupName   : myaseresourcegroup
+StackEdgeOrder      : Microsoft.Azure.Management.DataBoxEdge.Models.Order
+DeviceName          : myasegpu1useast-2
+Id                  : /subscriptions/ab1c2def-3g45-6h7i-j8kl-901234567890/resourceGroups/myaseresourcegroup/providers/Microsoft.DataBoxEdge/dataBoxEdgeDevices/myasegpu1useast-2/orders/default
+OrderHistory        : {}
+ForwardTrackingInfo : {}
+ReturnTrackingInfo  : {}
+ShippingAddress     : Microsoft.Azure.Management.DataBoxEdge.Models.Address
+
+Script execution successful.
+----------------------------
+myasegpu1useast-0 resource created and order placed successfully
+myasegpu1useast-1 resource created and order placed successfully
+myasegpu1useast-2 resource created and order placed successfully
+```
