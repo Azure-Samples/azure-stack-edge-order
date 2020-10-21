@@ -1,13 +1,13 @@
 ---
 title: Create multiple orders in Azure Stack Edge using scripts
-description: Batch-create orders in Azure Stack Edge by starting from scratch or cloning an existing order using Azure PowerShell.
+description: Batch-create orders in Azure Stack Edge by starting from scratch or by cloning an existing order using Azure PowerShell.
 services: databox
 author: v-dalc
 
 ms.service: databox
 ms.subservice: pod
 ms.topic: sample
-ms.date: 10/19/2020
+ms.date: 10/21/2020
 ms.author: alkohli
 
 # Customer intent: As an IT admin, I want to quickly create multiple orders in Azure Stack Edge using familiar PowerShell cmdlets.
@@ -15,8 +15,7 @@ ms.author: alkohli
 
 # Create multiple orders in Azure Stack Edge using Azure PowerShell
 
-Use the `New-AzStackEdgeMultiOrder.ps1` script to create multiple orders in Azure Stack Edge from scratch or by copying an existing order.
-<!--Use these two scripts to create multiple orders in Azure Stack Edge from scratch or by cloning an existing order.-->
+Use these two scripts to create multiple orders in Azure Stack Edge from scratch or by cloning an existing order.
 
 ## Prerequisites
 
@@ -26,8 +25,7 @@ Before you begin, make sure you have:
 - Azure subscription to use for your Azure Stack Edge resources
 - Resource group to use to manage the resources
 - Azure PowerShell
-- `New-AzStackEdgeMultiOrder.ps1` script stored in a convenient location
-<!--- Scripts - New-AzStackEdgeMultiOrder.ps1 and New-AzStackEdge-Clone-MultiOrder.ps1 - in a convenient location-->
+- Scripts - `New-AzStackEdgeMultiOrder.ps1` and `New-AzStackEdge-Clone-MultiOrder.ps1` - stored in a convenient location
 
 ### Install Azure PowerShell
 
@@ -35,7 +33,7 @@ Before you begin, make sure you have:
 
 2. Install the Az.Resources and Az.StackEdge modules in PowerShell. You will need to run PowerShell as Administrator.
 
-   1. If AzureRM is installed, uninstall it:
+   a. If AzureRM is installed, uninstall it:
 
       ```powershell
       PS C:\> Uninstall-AzureRm
@@ -51,9 +49,9 @@ Before you begin, make sure you have:
       > [!NOTE]
       > If AzureRM is installed, you'll need to uninstall it.
 
-### Download the script
+### Download the scripts
 
-1. Go to [azure-stack-edge-order in Azure Samples](https://github.com/Azure-Samples/azure-stack-edge-order).
+1. Go to the [repo that stores the scripts in Azure Samples](https://github.com/Azure-Samples/azure-stack-edge-order).
 
 1. Download or clone the zip file for the scripts.
 
