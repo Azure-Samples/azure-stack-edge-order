@@ -7,7 +7,7 @@ author: v-dalc
 ms.service: databox
 ms.subservice: pod
 ms.topic: sample
-ms.date: 10/21/2020
+ms.date: 01/22/2021
 ms.author: alkohli
 
 # Customer intent: As an IT admin, I want to quickly create multiple orders in Azure Stack Edge using familiar PowerShell cmdlets.
@@ -15,7 +15,7 @@ ms.author: alkohli
 
 # Create multiple orders in Azure Stack Edge using Azure PowerShell
 
-Use these two scripts to create multiple orders in Azure Stack Edge from scratch or by cloning an existing order.
+Use these two scripts to create multiple orders in Azure Stack Edge from scratch or by cloning an existing order. You can use these scripts with all Azure Stack Edge SKUs.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ Before you begin, make sure you have:
 
 2. Install the Az.Resources and Az.StackEdge modules in PowerShell. You will need to run PowerShell as Administrator.
 
-   a. If AzureRM is installed, uninstall it:
+   1. If AzureRM is installed, uninstall it:
 
       ```powershell
       PS C:\> Uninstall-AzureRm
@@ -68,32 +68,32 @@ Before you begin, make sure you have:
 ## Run the script
 
 1. Open Azure PowerShell as Administrator.
-1. Set your execution policy to **Unrestricted**. This is needed because the script is an unsigned script.
+2. Set your execution policy to **Unrestricted**. This is needed because the script is an unsigned script.
 
    ```azurepowershell
    Set-ExecutionPolicy Unrestricted
    ```
 
-1. Change directories to the directory where you stored the script. For example:
+3. Change directories to the directory where you stored the script. For example:
 
-```azurepowershell
-cd scripts
-```
+   ```azurepowershell
+   cd scripts
+   ```
 
-2.  Run the script. To run `New-AzStackEdgeMultiOrder.ps1`, you would type the following:
+4. Run the script. To run `New-AzStackEdgeMultiOrder.ps1`, you would type the following:
 
-```azurepowershell
-& '.\New-AzStackEdgeMultiOrder.ps1'
-```
-3. With an **Unrestricted** execution policy, you'll see the following text. Type `R` to run the script.
+   ```azurepowershell
+   & '.\New-AzStackEdgeMultiOrder.ps1'
+   ```
+5. With an **Unrestricted** execution policy, you'll see the following text. Type `R` to run the script.
 
-```azurepowershell
-Security warning
-Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your computer.
-If you trust this script, use the Unblock-File cmdlet to allow the script to run without this warning message. Do you want to
-run C:\scripts\New-AzStackEdgeMultiOrder.ps1?
-[D] Do not run  [R] Run once  [S] Suspend  [?] Help (default is "D"): R
-```
+   ```azurepowershell
+   Security warning
+   Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your computer.
+   If you trust this script, use the Unblock-File cmdlet to allow the script to run without this warning message. Do you want to
+   run C:\scripts\New-AzStackEdgeMultiOrder.ps1?
+   [D] Do not run  [R] Run once  [S] Suspend  [?] Help (default is "D"): R
+   ```
 
 ### New-AzStackEdgeMultiOrder.ps1
 
@@ -108,11 +108,15 @@ You'll need to provide an Azure subscription ID, resource group, the region wher
 - `DeviceName` becomes the name for the new Azure Stack Edge orders. For example, **mydevice** becomes mydevice-0, mydevice-1, and so forth. If you are copying an existing order, use that order name.
 
 - `OrderCount` is the total number of orders that you want to create. If you are copying an existing order, enter the total number of orders to create. For example, if you have two copies of an existing order (say, uswest-0 and uswest-1), and you want to add three new orders, enter 5 as the `OrderCount`. The three new orders (uswest-3, uswest-4, and uswest-5) will be added to the existing orders.
-
 - `SKU` indicates the configuration of Azure Stack Edge device to order:
-  - `Edge` - Azure Stack Edge Pro - FPGA
-  - `EdgeP_Base` - Azure Stack Edge Pro - 1GPU
-  - `EdgeP_High` - Azure Stack Edge Pro - 2GPU
+  | Azure Stack Edge SKU | Value |
+  | -------------------- | ---------------- |
+  | Azure Stack Edge Pro with FPGA | `Edge` |
+  | Azure Stack Edge Pro - 1GPU | `EdgeP_Base` |
+  | Azure Stack Edge Pro - 2GPU | `EdgeP_High` |
+  | Azure Stack Edge Pro - single node | `EdgePR-Base` |
+  | Azure Stack Edge Pro - single node with UPS | `EdgePR_Base_UPS` |
+  | Azure Stack Edge Mini R | `EdgeMR_Mini` |
 - `ResoureGroupName` - Enter a resource group to use with the order.
 
 #### Sample output 1: Create new orders
@@ -150,9 +154,8 @@ Country: USA
 Sku:EdgeP_Base
 Setting context
 
-Name                                     Account        SubscriptionNa Environment    TenantId
-                                                        me
-----                                     -------        -------------- -----------    --------
+Name                                     Account             SubscriptionName    Environment         TenantId
+----                                     -------             ----------------    -----------         --------
 ContosoWE (ab1c2def-3g45-6h7i... gusp@con... Edge Gatewa... AzureCloud     12a345bc-6...
 
 ResourceGroupName : myaseresourcegroup
@@ -245,10 +248,15 @@ The new orders will be created in the same region as the original order. Contact
 
 - `NewDeviceName` - Give a name for the new devices. Order names will be numbered. For example, **mynewdevice** becomes mynewdevice-0, mynewdevice-1, and so forth.
 
-- `SKU` indicates the Azure Stack Edge SKU type to order:
-  - `Edge` - Azure Stack Edge Pro - FPGA
-  - `EdgeP_Base` - Azure Stack Edge Pro - 1 GPU
-  - `EdgeP_High` - Azure Stack Edge Pro - 2 GPU
+- `SKU` indicates the configuration of Azure Stack Edge device to order:
+  | Azure Stack Edge SKU | Value |
+  | -------------------- | ---------------- |
+  | Azure Stack Edge Pro with FPGA | `Edge` |
+  | Azure Stack Edge Pro - 1GPU | `EdgeP_Base` |
+  | Azure Stack Edge Pro - 2GPU | `EdgeP_High` |
+  | Azure Stack Edge Pro - single node | `EdgePR-Base` |
+  | Azure Stack Edge Pro - single node with UPS | `EdgePR_Base_UPS` |
+  | Azure Stack Edge Mini R | `EdgeMR_Mini` |
 
 ### Sample output
 
