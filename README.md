@@ -7,7 +7,7 @@ author: v-dalc
 ms.service: databox
 ms.subservice: pod
 ms.topic: sample
-ms.date: 01/22/2021
+ms.date: 02/04/2021
 ms.author: alkohli
 
 # Customer intent: As an IT admin, I want to quickly create multiple orders in Azure Stack Edge using familiar PowerShell cmdlets.
@@ -111,12 +111,15 @@ You'll need to provide an Azure subscription ID, resource group, the region wher
 - `SKU` indicates the configuration of Azure Stack Edge device to order:
   | Azure Stack Edge SKU | Value |
   | -------------------- | ---------------- |
-  | Azure Stack Edge Pro with FPGA | `Edge` |
   | Azure Stack Edge Pro - 1GPU | `EdgeP_Base` |
   | Azure Stack Edge Pro - 2GPU | `EdgeP_High` |
   | Azure Stack Edge Pro - single node | `EdgePR-Base` |
   | Azure Stack Edge Pro - single node with UPS | `EdgePR_Base_UPS` |
   | Azure Stack Edge Mini R | `EdgeMR_Mini` |
+  
+   > [!NOTE]
+   > Azure Stack Edge Pro with FPGA is now deprecated and new orders can't be created.
+   
 - `ResoureGroupName` - Enter a resource group to use with the order.
 
 #### Sample output 1: Create new orders
