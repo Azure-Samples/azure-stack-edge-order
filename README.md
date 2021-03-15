@@ -254,7 +254,6 @@ The new orders will be created in the same region as the original order. Contact
 - `SKU` indicates the configuration of Azure Stack Edge device to order:
   | Azure Stack Edge SKU | Value |
   | -------------------- | ---------------- |
-  | Azure Stack Edge Pro with FPGA | `Edge` |
   | Azure Stack Edge Pro - 1GPU | `EdgeP_Base` |
   | Azure Stack Edge Pro - 2GPU | `EdgeP_High` |
   | Azure Stack Edge Pro - single node | `EdgePR-Base` |
